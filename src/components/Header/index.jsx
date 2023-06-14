@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "./Header.scss";
 import { Logo, SearchIcon } from "@icons";
 
@@ -27,37 +28,43 @@ const Header = () => {
           <div></div>
         </button>
         <div className="Header__logo">
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
         </div>
-        <button className="Header__search-toggle" onClick={toggleSearch} title="Toggle Search Bar">
+        <button
+          className="Header__search-toggle"
+          onClick={toggleSearch}
+          title="Toggle Search Bar"
+        >
           <SearchIcon />
         </button>
         <nav className={`Header__nav ${showMenu ? "open" : ""}`}>
           <ul>
             <li>
-              <a className="nav-links" href="#">
+              <NavLink className="navLink" to="/">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a className="nav-links" href="#trends">
+              <NavLink className="navLink" to="/trends">
                 Trending Movies
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a className="nav-links" href="#category=28&Action">
+              <NavLink className="navLink" to="/category">
                 Categories
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a className="nav-links" href="#popular">
+              <NavLink className="navLink" to="/popular">
                 Popular
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a className="nav-links" href="#upcoming">
+              <NavLink className="navLink" to="/upcoming">
                 Upcoming
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>
