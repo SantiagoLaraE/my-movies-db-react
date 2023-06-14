@@ -1,0 +1,107 @@
+@use "./vars";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  background-color: vars.$dark-color;
+  color: vars.$white;
+  font-family: "Ubuntu", sans-serif;
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #262626;
+  border-radius: 0.2rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: vars.$red-color;
+  border-radius: 0.2rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+.button {
+  background-color: vars.$red-color;
+  color: vars.$white;
+  font-size: 1.8rem;
+  padding: 1.2rem 1.6rem;
+  border: none;
+  border-radius: 0.8rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 500;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.button-secondary {
+  background-color: vars.$gray-color;
+}
+
+.button-secondary span {
+  display: none;
+}
+
+.button:hover {
+  background-color: #222;
+  color: vars.$white;
+}
+
+.button img {
+  vertical-align: top;
+}
+
+.button--small {
+  padding: 0.6rem 0.8rem;
+  font-size: 1.4rem;
+}
+
+.container {
+  padding: 0 1.6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+img {
+  vertical-align: top;
+}
+
+main {
+  margin-top: 60px;
+}
+section {
+  animation-name: fade_in_show;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+}
+.section {
+  position: relative;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  background-color: vars.$dark-color;
+}
