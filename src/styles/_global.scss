@@ -58,12 +58,8 @@ p {
   cursor: pointer;
 }
 
-.button-secondary {
+.button.secondary {
   background-color: vars.$gray-color;
-}
-
-.button-secondary span {
-  display: none;
 }
 
 .button:hover {
@@ -106,7 +102,13 @@ section {
   background-color: vars.$dark-color;
 }
 
-button{
+button {
   background-color: transparent;
   border: none;
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    margin-top: 80px;
+  }
 }

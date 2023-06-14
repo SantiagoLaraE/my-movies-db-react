@@ -68,3 +68,73 @@ export const SearchIcon = () => {
     </svg>
   );
 };
+
+export const InfoIcon = () => {
+  return (
+    <svg
+      width="16"
+      height="17"
+      viewBox="0 0 16 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8 16.5C12.4183 16.5 16 12.9183 16 8.5C16 4.08172 12.4183 0.5 8 0.5C3.58172 0.5 0 4.08172 0 8.5C0 12.9183 3.58172 16.5 8 16.5ZM7.16854 13H8.8427V6.81984H7.16854V13ZM8.69663 5.79765C8.89888 5.60966 9 5.35509 9 5.03394C9 4.71279 8.89888 4.46214 8.69663 4.28198C8.50187 4.09399 8.26966 4 8 4C7.73034 4 7.49438 4.09399 7.29213 4.28198C7.09738 4.46214 7 4.71279 7 5.03394C7 5.35509 7.09738 5.60966 7.29213 5.79765C7.49438 5.97781 7.73034 6.06788 8 6.06788C8.26966 6.06788 8.50187 5.97781 8.69663 5.79765Z"
+        fill="white"
+      />
+    </svg>
+  );
+};
+
+export const PlayIcon = () => {
+  return (
+    <svg
+      width="12"
+      height="15"
+      viewBox="0 0 12 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 7.50001L-6.05683e-07 14.4282L0 0.571807L12 7.50001Z"
+        fill="white"
+      />
+    </svg>
+  );
+};
+
+export const StarIcon = () => {
+  return (
+    <svg
+      width="32"
+      height="29"
+      viewBox="0 0 32 29"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16 0L19.5922 11.0557H31.2169L21.8123 17.8885L25.4046 28.9443L16 22.1115L6.59544 28.9443L10.1877 17.8885L0.783095 11.0557H12.4078L16 0Z"
+        fill="#E13C2F"
+      />
+    </svg>
+  );
+};
+
+export const ArrowLeftIcon = () => {
+  return (
+    <svg
+      width="16"
+      height="13"
+      viewBox="0 0 16 13"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 6.24705L6.24705 0L8.07734 1.8217L4.93233 4.95811H16V7.53598H4.93233L8.07734 10.681L6.24705 12.5027L0 6.24705Z"
+        fill="white"
+      />
+    </svg>
+  );
+};

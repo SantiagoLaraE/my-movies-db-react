@@ -1,0 +1,26 @@
+@use "@styles/vars";
+
+.HeroMovieCategories__list {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: both proximity;
+  scroll-snap-align: center;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  font-weight: 100;
+  white-space: nowrap;
+
+  .CategoryLink {
+    background-color: vars.$gray-color;
+    font-size: 1.6rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.8rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    &:where(:hover, .active) {
+      background-color: vars.$red-color;
+    }
+  }
+}
