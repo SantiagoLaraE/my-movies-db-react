@@ -24,4 +24,13 @@ const MovieCard = ({ movie }) => {
   );
 };
 
+export const MovieCardLoading = () => {
+  return (
+    <div>
+      <div className="img-loading"></div>
+      <div className="text-loading"></div>
+    </div>
+  );
+};
+
 export default MovieCard;
