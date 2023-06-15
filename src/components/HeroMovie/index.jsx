@@ -17,17 +17,18 @@ export const HeroMovie = ({ children, spacingTop }) => {
   );
 };
 
-export const HeroMovieBackground = ({ imgAlt, imgBgMobile, imgBgDesktop }) => {
+export const HeroMovieBackground = ({ imgAlt, imgBgMobile, imgBgDesktop, loading }) => {
   let imgMobile = `https://image.tmdb.org/t/p/w500//${imgBgMobile}`;
   let imgDesktop = `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces//${imgBgDesktop}`;
   return (
     <section className="HeroMovieBackground">
-      {imgBgMobile && imgBgDesktop && (
+      {imgBgMobile && imgBgDesktop && !loading && (
         <picture>
           <source media="(min-width: 768px)" srcSet={imgDesktop} alt={imgAlt} />
           <img src={imgMobile} alt={imgAlt} />
         </picture>
       )}
+      {loading && <div className="img-loading"></div>}
     </section>
   );
 };
