@@ -1,0 +1,40 @@
+.MoviesList {
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr 75px;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    grid-gap: 16px;
+  }
+  &__title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
+    grid-gap: 16px;
+
+    &--scroll {
+      display: flex;
+      overflow-x: scroll;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: both proximity;
+      scroll-snap-align: center;
+      gap: 16px;
+      padding-bottom: 16px;
+
+      .MovieCard {
+        min-width: 136px;
+        max-width: 136px;
+      }
+    }
+  }
+
+  &__no-results {
+    width: 100%;
+    text-align: center;
+    padding: 10.8rem 3.2rem;
+  }
+}
