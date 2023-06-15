@@ -117,6 +117,17 @@
       vars.$dark-color 100%
     );
 
+    .HeroMovieBackground::after {
+      content: "";
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 40%;
+      background: linear-gradient(90deg, black, transparent);
+      top: 0;
+      left: 0;
+    }
+
     &.spacingTop {
       margin-top: 250px;
     }

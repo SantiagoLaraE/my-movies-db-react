@@ -8,7 +8,7 @@ const MoviesList = ({ movies, scroll, loading }) => {
 
   return (
     <article className={`MoviesList__list${scroll ? "--scroll" : ""}`}>
-      {movies?.length && !loading && <Results movies={movies} />}
+      {!!movies?.length && !loading && <Results movies={movies} />}
       {!movies?.length && !loading && <NoResults />}
       {loading &&
         loadingArr.map((_, i) => (
