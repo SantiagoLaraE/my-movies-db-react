@@ -17,21 +17,17 @@ export const HeroMovie = ({ children, spacingTop }) => {
   );
 };
 
-export const HeroMovieBackground = ({ imgBgMobile, imgBgDesktop }) => {
+export const HeroMovieBackground = ({ imgAlt, imgBgMobile, imgBgDesktop }) => {
+  let imgMobile = `https://image.tmdb.org/t/p/w500//${imgBgMobile}`;
+  let imgDesktop = `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces//${imgBgDesktop}`;
   return (
     <section className="HeroMovieBackground">
-      <picture>
-        <source
-          media="(min-width: 768px)"
-          srcSet={imgBgDesktop}
-          // srcset="https://image.tmdb.org/t/p/w1920_and_h800_multi_faces//2e7fc8eNwLXZ5Uvehvl3xj8wVyv.jpg"
-        />
-        <img
-          src={imgBgMobile}
-          // src="https://image.tmdb.org/t/p/w500//fiVW06jE7z9YnO4trhaMEdclSiC.jpg"
-          alt=""
-        />
-      </picture>
+      {imgBgMobile && imgBgDesktop && (
+        <picture>
+          <source media="(min-width: 768px)" srcSet={imgDesktop} alt={imgAlt} />
+          <img src={imgMobile} alt={imgAlt} />
+        </picture>
+      )}
     </section>
   );
 };
@@ -67,13 +63,13 @@ export const HeroMovieDetails = ({ loading, children }) => {
   );
 };
 
-export const HeroMovieInfo = ({ voteAverage, runtime, tag }) => {
+export const HeroMovieInfo = ({ voteAverage, releaseDate, tag }) => {
   return (
     <div className="HeroMovieInfo">
       <div className="HeroMovieInfo__vote-average">
         <StarIcon /> {voteAverage}
       </div>
-      <div className="HeroMovieInfo__runtime">{runtime}</div>
+      <div className="HeroMovieInfo__release-date">{releaseDate}</div>
       {tag && <div className="HeroMovieInfo__tag">{tag}</div>}
     </div>
   );
