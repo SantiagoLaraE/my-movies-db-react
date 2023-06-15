@@ -1,16 +1,17 @@
 import React from "react";
 import "./CategoryList.scss";
 
-const CategoryList = ({ categories, loading, verticalScroll }) => {
+const CategoryList = ({ categories, loading, xScroll }) => {
+
   return (
     <article
-      className={`HeroMovieCategories__list ${verticalScroll ? "scroll" : ""}`}
+      className={`Categories__list ${xScroll ? "x-scroll" : ""}`}
     >
       {loading && <CategoryLoading />}
 
       {!loading &&
         categories.map((category) => (
-          <CategoryLink key={category.title} title={category.title} />
+          <CategoryLink key={category.name} title={category.name} />
         ))}
     </article>
   );
