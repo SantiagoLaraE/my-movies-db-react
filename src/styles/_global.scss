@@ -71,9 +71,13 @@ p {
   vertical-align: top;
 }
 
-.button--small {
+.button.small {
   padding: 0.6rem 0.8rem;
   font-size: 1.4rem;
+}
+
+.button.active {
+  background-color: vars.$red-color;
 }
 
 .container {
