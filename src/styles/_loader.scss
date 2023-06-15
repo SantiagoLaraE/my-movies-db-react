@@ -1,0 +1,60 @@
+@use "@styles/vars";
+
+.item-loading {
+  width: 100%;
+  background-color: rgba(vars.$white, 0.1);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  &::after {
+    background-color: rgba(vars.$white, 0.05);
+    content: "";
+    width: 10%;
+    height: 140%;
+    display: block;
+    position: absolute;
+    top: -20%;
+    left: 0;
+    filter: blur(24px);
+    transform-origin: top;
+    animation: itemLoadingAnimation 2s ease-in-out infinite;
+  }
+}
+
+.img-loading {
+  @extend .item-loading;
+  min-width: 136px;
+  padding-top: 144%;
+}
+
+.category-loading {
+  @extend .item-loading;
+  width: 100px;
+  padding-top: 38px;
+  height: auto;
+}
+
+.category-loading::after {
+  width: 25%;
+}
+
+.text-loading {
+  @extend .item-loading;
+  margin-top: 8px;
+  padding-top: 16px;
+  animation-delay: 1s;
+}
+
+@keyframes itemLoadingAnimation {
+  0% {
+    left: -40%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 130%;
+    opacity: 0;
+  }
+}
