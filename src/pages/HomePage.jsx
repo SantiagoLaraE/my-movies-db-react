@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, useEffect, useState } from "react";
 import {
   HeroMovie,
   HeroMovieBackground,
@@ -10,40 +10,60 @@ import {
 } from "@components/HeroMovie";
 import Button from "@components/Button";
 import { PlayIcon, InfoIcon } from "@icons";
-import MovieCard from "../components/MovieCard";
+import MoviesList from "@components/MoviesList";
 
 const HomePage = () => {
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const res = await fetch(
+        "https://api.themoviedb.org/3/movie/popular?api_key=b0a05ae639d6698fdc1f9c074d586a56"
+      );
+      const json = await res.json();
+      setTrendingMovies(json.results);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  const topMovie = trendingMovies[0];
 
   return (
     <>
       <HeroMovie spacingTop>
         <HeroMovieBackground
-          imgBgMobile="https://image.tmdb.org/t/p/w500//fiVW06jE7z9YnO4trhaMEdclSiC.jpg"
-          imgBgDesktop="https://image.tmdb.org/t/p/w1920_and_h800_multi_faces//2e7fc8eNwLXZ5Uvehvl3xj8wVyv.jpg"
+          imgAlt={topMovie?.title}
+          imgBgMobile={topMovie?.poster_path}
+          imgBgDesktop={topMovie?.backdrop_path}
+          loading={loading}
         />
         <HeroMovieDetailsWrapper>
-          <HeroMovieDetails>
-            <HeroMovieInfo voteAverage="7.5" runtime="1h 5m" tag="trending" />
+          <HeroMovieDetails loading={loading}>
+            <HeroMovieInfo
+              voteAverage={topMovie?.vote_average}
+              releaseDate={topMovie?.release_date}
+              tag="trending"
+            />
             <HeroMovieDescription
               title="Fast X"
               overview="Over many missions and against impossible odds, Dom Toretto and his family have outsmarted, out-nerved and outdriven every foe in their path. Now, they confront the most lethal opponent they've ever faced: A terrifying threat emerging from the shadows of the past who's fueled by blood revenge, and who is determined to shatter this family and destroy everything—and everyone—that Dom loves, forever."
             />
             <HeroMovieActions>
-              <Button
-                className="playVideoBtn"
-                title="Play trailer"
-                icon={<PlayIcon />}
-              />
-              <Button
-                className="detailsTopMovie"
-                icon={<InfoIcon />}
-                variant="secondary"
-              />
+              <Button title="Play trailer" icon={<PlayIcon />} />
+              <Button icon={<InfoIcon />} variant="secondary" />
             </HeroMovieActions>
           </HeroMovieDetails>
         </HeroMovieDetailsWrapper>
       </HeroMovie>
-      <MovieCard/>
+      <MoviesList
+        title="Trending"
+        movies={trendingMovies}
+        loading={loading}
+        scroll
+      />
     </>
   );
 };
