@@ -1,20 +1,25 @@
 import React from "react";
-import Button from '@components/Button';
-import './MovieCard.scss';
+import Button from "@components/Button";
+import "./MovieCard.scss";
 
-const MovieCard = () => {
+const MovieCard = ({ movie }) => {
   return (
     <figure className="MovieCard">
       <img
         className="MovieCard__img MovieCard__img--loaded"
-        data-image="https://image.tmdb.org/t/p/w154/w46Vw536HwNnEzOa7J24YH9DPRS.jpg"
+        data-image={`https://image.tmdb.org/t/p/w154/${movie.poster_path}`}
         alt="My Fault"
         width="200"
         height="300"
-        src="https://image.tmdb.org/t/p/w154/w46Vw536HwNnEzOa7J24YH9DPRS.jpg"
+        src={`https://image.tmdb.org/t/p/w154/${movie.poster_path}`}
       />
-      <figcaption className="MovieCard__title">My Fault</figcaption>
-        <Button icon='🤍' className='MovieCard__btn' variant='secondary' size='small'/>
+      <figcaption className="MovieCard__title">{movie.title}</figcaption>
+      <Button
+        icon="🤍"
+        className="MovieCard__btn"
+        variant="secondary"
+        size="small"
+      />
     </figure>
   );
 };
