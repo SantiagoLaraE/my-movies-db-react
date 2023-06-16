@@ -3,6 +3,15 @@ import { Link, NavLink } from "react-router-dom";
 import "./Header.scss";
 import { Logo, SearchIcon } from "@icons";
 
+const navigation = [
+  { name: "Home", to: "/" },
+  { name: "Now Playing", to: "/movies/now-playing" },
+  { name: "Categories", to: "/categories" },
+  { name: "Popular", to: "/movies/popular" },
+  { name: "Top Rated", to: "/movies/top-rated" },
+  { name: "Upcoming", to: "/movies/upcoming" },
+];
+
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -41,31 +50,17 @@ const Header = () => {
         </button>
         <nav className={`Header__nav ${showMenu ? "open" : ""}`}>
           <ul>
-            <li>
-              <NavLink className="navLink" to="/">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="navLink" to="/trends">
-                Trending Movies
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="navLink" to="/category">
-                Categories
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="navLink" to="/popular">
-                Popular
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="navLink" to="/upcoming">
-                Upcoming
-              </NavLink>
-            </li>
+            {navigation.map((link) => (
+              <li key={`Link-${link.to}`}>
+                <NavLink
+                  className="navLink"
+                  to={link.to}
+                  onClick={() => setShowMenu(false)}
+                >
+                  {link.name}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
         <div className={`Header__search ${showSearch ? "open" : ""}`}>
