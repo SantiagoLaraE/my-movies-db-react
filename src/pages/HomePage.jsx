@@ -14,6 +14,7 @@ import MoviesList from "@components/MoviesList";
 import useApi from "@hooks/useApi";
 import { getRandomInt } from "@utils";
 import { useNavigate } from "react-router-dom";
+import AllCategoriesSection from "../template/AllCategoriesSection";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -66,6 +67,8 @@ const HomePage = () => {
         </SectionLayoutHeader>
         <MoviesList movies={trendingMovies} loading={loading} xScroll />
       </SectionLayout>
+
+      <AllCategoriesSection/>
     </>
   );
 };
