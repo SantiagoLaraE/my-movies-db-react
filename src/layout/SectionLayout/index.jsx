@@ -1,7 +1,7 @@
 import React from "react";
 import "./SectionLayout.scss";
 
-const SectionLayout = ({ children }) => {
+export const SectionLayout = ({ children }) => {
   return (
     <section id="SectionLayout" className="section">
       <div className="container">{children}</div>
@@ -19,5 +19,3 @@ export const SectionLayoutHeader = ({ children, title, center }) => {
     </div>
   );
 };
-
-export default SectionLayout;

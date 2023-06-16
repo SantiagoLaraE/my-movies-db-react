@@ -1,4 +1,3 @@
-import React, { lazy, useEffect, useState } from "react";
 import {
   HeroMovie,
   HeroMovieBackground,
@@ -9,60 +8,64 @@ import {
   HeroMovieActions,
 } from "@components/HeroMovie";
 import Button from "@components/Button";
+import { SectionLayout, SectionLayoutHeader } from "@layout/SectionLayout";
 import { PlayIcon, InfoIcon } from "@icons";
 import MoviesList from "@components/MoviesList";
+import useApi from "@hooks/useApi";
+import { getRandomInt } from "@utils";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  const [trendingMovies, setTrendingMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { data, loading } = useApi({
+    endpoint: "/movie/now_playing",
+  });
+  const trendingMovies = data?.results;
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const res = await fetch(
-        "https://api.themoviedb.org/3/movie/popular?api_key=b0a05ae639d6698fdc1f9c074d586a56"
-      );
-      const json = await res.json();
-      setTrendingMovies(json.results);
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
-
-  const topMovie = trendingMovies[0];
+  const topMovie = trendingMovies
+    ? trendingMovies[getRandomInt(0, trendingMovies.length - 1)]
+    : null;
 
   return (
     <>
       <HeroMovie spacingTop>
-        <HeroMovieBackground
-          imgAlt={topMovie?.title}
-          imgBgMobile={topMovie?.poster_path}
-          imgBgDesktop={topMovie?.backdrop_path}
-          loading={loading}
-        />
-        <HeroMovieDetailsWrapper>
-          <HeroMovieDetails loading={loading}>
-            <HeroMovieInfo
-              voteAverage={topMovie?.vote_average}
-              releaseDate={topMovie?.release_date}
-              tag="trending"
+        {topMovie ? (
+          <>
+            <HeroMovieBackground
+              imgAlt={topMovie.title}
+              imgBgMobile={topMovie.poster_path}
+              imgBgDesktop={topMovie.backdrop_path}
+              loading={loading}
             />
-            <HeroMovieDescription
-              title="Fast X"
-              overview="Over many missions and against impossible odds, Dom Toretto and his family have outsmarted, out-nerved and outdriven every foe in their path. Now, they confront the most lethal opponent they've ever faced: A terrifying threat emerging from the shadows of the past who's fueled by blood revenge, and who is determined to shatter this family and destroy everything—and everyone—that Dom loves, forever."
-            />
-            <HeroMovieActions>
-              <Button title="Play trailer" icon={<PlayIcon />} />
-              <Button icon={<InfoIcon />} variant="secondary" />
-            </HeroMovieActions>
-          </HeroMovieDetails>
-        </HeroMovieDetailsWrapper>
+            <HeroMovieDetailsWrapper>
+              <HeroMovieDetails loading={loading}>
+                <HeroMovieInfo
+                  voteAverage={topMovie.vote_average}
+                  releaseDate={topMovie.release_date}
+                  tag="trending"
+                />
+                <HeroMovieDescription
+                  title={topMovie.title}
+                  overview={topMovie.overview}
+                />
+                <HeroMovieActions>
+                  <Button title="Play trailer" icon={<PlayIcon />} />
+                  <Button icon={<InfoIcon />} variant="secondary" />
+                </HeroMovieActions>
+              </HeroMovieDetails>
+            </HeroMovieDetailsWrapper>
+          </>
+        ) : (
+          "No results"
+        )}
       </HeroMovie>
-      <MoviesList
-        movies={trendingMovies}
-        loading={loading}
-        xScroll
-      />
+
+      <SectionLayout>
+        <SectionLayoutHeader title="Now Playing">
+          <Button title="See all" size="small" onClick={() => navigate('/movies/now-playing')} />
+        </SectionLayoutHeader>
+        <MoviesList movies={trendingMovies} loading={loading} xScroll />
+      </SectionLayout>
     </>
   );
 };
