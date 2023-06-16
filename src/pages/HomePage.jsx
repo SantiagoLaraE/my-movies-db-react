@@ -59,10 +59,9 @@ const HomePage = () => {
         </HeroMovieDetailsWrapper>
       </HeroMovie>
       <MoviesList
-        title="Trending"
         movies={trendingMovies}
         loading={loading}
-        scroll
+        xScroll
       />
     </>
   );

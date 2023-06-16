@@ -4,7 +4,7 @@
     grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
     grid-gap: 16px;
 
-    &--scroll {
+    &.x-scroll {
       display: flex;
       overflow-x: scroll;
       overscroll-behavior-x: contain;

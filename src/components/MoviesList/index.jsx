@@ -3,11 +3,11 @@ import MovieCard from "@components/MovieCard";
 import "./MoviesList.scss";
 import { MovieCardLoading } from "../MovieCard";
 
-const MoviesList = ({ movies, scroll, loading }) => {
+const MoviesList = ({ movies, xScroll, loading }) => {
   const loadingArr = ["", "", ""];
 
   return (
-    <article className={`MoviesList__list${scroll ? "--scroll" : ""}`}>
+    <article className={`MoviesList__list ${xScroll ? "x-scroll" : ""}`}>
       {!!movies?.length && !loading && <Results movies={movies} />}
       {!movies?.length && !loading && <NoResults />}
       {loading &&
