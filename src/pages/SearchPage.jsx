@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SectionLayout, SectionLayoutHeader } from "@layout/SectionLayout";
 import Button from "@components/Button";
 import MoviesList from "@components/MoviesList";
@@ -18,6 +18,7 @@ const SearchPage = () => {
   } = useApiInfiniteScrolling({
     endpoint: `/search/movie`,
     qParams: [`query=${query}`],
+    resetDependecies: [query],
   });
 
   const goBack = () => {
