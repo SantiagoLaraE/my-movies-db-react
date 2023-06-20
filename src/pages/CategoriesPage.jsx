@@ -21,8 +21,8 @@ const CategoriesPage = () => {
 
   const categories = data?.genres;
 
-  const {data: moviesData, loading: moviesLoading} = useApiInfiniteScrolling({
-    endpoint: "/movie/now_playing",
+  const {data: moviesData, loading: moviesLoading, end} = useApiInfiniteScrolling({
+    endpoint: "/discover/movie",
     qParams: [`with_genres=${categoryId}`],
     resetDependecies: [categorySlug],
   })
@@ -51,7 +51,7 @@ const CategoriesPage = () => {
         <MoviesList movies={moviesData} />
         <p style={{ width: "100%", padding: "64px", textAlign: "center" }}>
           {moviesLoading && 'Loading...' }
-          {!!moviesData.length && 'No more results'}
+          {end && 'No more results'}
         </p>
       </SectionLayout>
     </>
