@@ -1,5 +1,7 @@
 import React from "react";
 import "./CategoryList.scss";
+import { Link } from "react-router-dom";
+import { formatToURL } from "@utils";
 
 const CategoryList = ({ categories, loading, xScroll }) => {
   return (
@@ -9,7 +11,7 @@ const CategoryList = ({ categories, loading, xScroll }) => {
       {!loading &&
         !!categories?.length &&
         categories.map((category) => (
-          <CategoryLink key={category.name} title={category.name} />
+          <CategoryLink key={category.name} category={category} />
         ))}
 
       {!loading && !categories?.length && <p>No results</p>}
@@ -17,8 +19,15 @@ const CategoryList = ({ categories, loading, xScroll }) => {
   );
 };
 
-const CategoryLink = ({ title }) => {
-  return <a className="CategoryLink">{title}</a>;
+const CategoryLink = ({ category }) => {
+  const categorySlug = `/categories/${category.id}&${formatToURL(
+    category.name
+  )}`;
+  return (
+    <Link className="CategoryLink" to={categorySlug}>
+      {category.name}
+    </Link>
+  );
 };
 
 const CategoryLoading = () => {

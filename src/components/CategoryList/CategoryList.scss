@@ -24,6 +24,8 @@
     padding: 0.8rem 1.2rem;
     border-radius: 0.8rem;
     transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
     cursor: pointer;
     &:where(:hover, .active) {
       background-color: vars.$red-color;
