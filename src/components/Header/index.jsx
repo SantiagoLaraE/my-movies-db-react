@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import "./Header.scss";
 import { Logo, SearchIcon } from "@icons";
 
@@ -15,6 +15,16 @@ const navigation = [
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const [query, setQuery] = useState(() => {
+    return searchParams.get("q") || "";
+  });
+
+  useEffect(() => {
+    setQuery(searchParams.get("q") || "");
+  }, [searchParams]);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -23,6 +33,11 @@ const Header = () => {
   const toggleSearch = () => {
     setShowSearch((prev) => !prev);
     setShowMenu(false);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/search?q=${encodeURI(query)}`);
   };
   return (
     <header id="header" className="Header">
@@ -64,8 +79,13 @@ const Header = () => {
           </ul>
         </nav>
         <div className={`Header__search ${showSearch ? "open" : ""}`}>
-          <form id="searchForm">
-            <input type="text" placeholder="Search" />
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
             <button type="submit">
               <SearchIcon />
             </button>
