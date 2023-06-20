@@ -7,7 +7,7 @@ const getEnvVar = (name) => {
 const apiUrl = `${getEnvVar("VITE_API_URL")}${getEnvVar("VITE_API_VERSION")}`;
 const apiKey = `api_key=${getEnvVar("VITE_API_KEY")}`;
 
-function useApi({ endpoint, qParams }) {
+function useApi({ endpoint, qParams, dependecies }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,6 +15,8 @@ function useApi({ endpoint, qParams }) {
   const queryParameters = qParams
     ? `?${[...qParams, apiKey].join("&")}`
     : `?${apiKey}`;
+
+  dependecies = dependecies ? dependecies : [];
 
   useEffect(() => {
     const controller = new AbortController();
@@ -45,7 +47,7 @@ function useApi({ endpoint, qParams }) {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [...dependecies]);
   return { data, loading, error };
 }
 
