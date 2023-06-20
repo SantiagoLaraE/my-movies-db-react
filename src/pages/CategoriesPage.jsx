@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Button from "@components/Button";
 import MoviesList from "@components/MoviesList";
