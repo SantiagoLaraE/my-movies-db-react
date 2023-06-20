@@ -6,10 +6,10 @@ import { ArrowLeftIcon } from "@icons";
 import { SectionLayout, SectionLayoutHeader } from "@layout/SectionLayout";
 import CategoryList from "../components/CategoryList";
 import useApi from "@hooks/useApi";
+import useApiInfiniteScrolling from "../hooks/useApiInfiniteScrolling";
 
 const CategoriesPage = () => {
-  const [page, setPage] = useState(1);
-  const [movies, setMovies] = useState([]);
+
   const { categorySlug } = useParams();
   const [categoryId, categoryName] = categorySlug.split("&");
   const navigate = useNavigate();
@@ -21,38 +21,11 @@ const CategoriesPage = () => {
 
   const categories = data?.genres;
 
-  const { data: dataMovies, loading: loadingMovies } = useApi({
+  const {data: moviesData, loading: moviesLoading} = useApiInfiniteScrolling({
     endpoint: "/movie/now_playing",
-    qParams: [`with_genres=${categoryId}`, `page=${page}`],
-    dependecies: [page, categoryId],
-  });
-
-  useEffect(() => {
-    setMovies([]);
-    setPage(1);
-  }, [categorySlug]);
-
-  useEffect(() => {
-    if (dataMovies?.results) {
-      setMovies([...movies, ...dataMovies?.results]);
-    }
-
-    const isScrollAtBottom = () => {
-      const { scrollHeight, scrollTop, clientHeight } =
-        document.documentElement;
-      if (
-        scrollHeight - 32 < scrollTop + clientHeight &&
-        dataMovies?.total_pages > page
-      ) {
-        setPage(page + 1);
-      }
-    };
-
-    window.addEventListener("scroll", isScrollAtBottom);
-    return () => {
-      window.removeEventListener("scroll", isScrollAtBottom);
-    };
-  }, [dataMovies]);
+    qParams: [`with_genres=${categoryId}`],
+    resetDependecies: [categorySlug],
+  })
 
   const goBack = () => {
     const state = location.state;
@@ -75,10 +48,10 @@ const CategoriesPage = () => {
           loading={loadingCategories}
           activeCategory={categoryId}
         />
-        <MoviesList movies={movies} />
+        <MoviesList movies={moviesData} />
         <p style={{ width: "100%", padding: "64px", textAlign: "center" }}>
-          {loadingMovies && 'Loading...' }
-          {!!movies.length && 'No more results'}
+          {moviesLoading && 'Loading...' }
+          {!!moviesData.length && 'No more results'}
         </p>
       </SectionLayout>
     </>
