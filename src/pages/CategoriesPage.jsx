@@ -15,16 +15,6 @@ const CategoriesPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const goBack = () => {
-    const state = location.state;
-
-    if (state?.prevLocation) {
-      navigate(state.prevLocation.pathname);
-    } else {
-      navigate("/");
-    }
-  };
-
   const { data, loading: loadingCategories } = useApi({
     endpoint: "/genre/movie/list",
   });
@@ -64,6 +54,16 @@ const CategoriesPage = () => {
     };
   }, [dataMovies]);
 
+  const goBack = () => {
+    const state = location.state;
+
+    if (state?.prevLocation) {
+      navigate(state.prevLocation.pathname);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <SectionLayout>
@@ -77,7 +77,8 @@ const CategoriesPage = () => {
         />
         <MoviesList movies={movies} />
         <p style={{ width: "100%", padding: "64px", textAlign: "center" }}>
-          {loadingMovies ? 'Loading...' : 'No more results'}
+          {loadingMovies && 'Loading...' }
+          {!!movies.length && 'No more results'}
         </p>
       </SectionLayout>
     </>
