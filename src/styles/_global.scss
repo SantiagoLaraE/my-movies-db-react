@@ -41,45 +41,6 @@ p {
   font-size: 1.6rem;
 }
 
-.button {
-  background-color: vars.$red-color;
-  color: vars.$white;
-  font-size: 1.8rem;
-  padding: 1.2rem 1.6rem;
-  border: none;
-  border-radius: 0.8rem;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  font-weight: 500;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.button.secondary {
-  background-color: vars.$gray-color;
-}
-
-.button:hover {
-  background-color: #222;
-  color: vars.$white;
-}
-
-.button img {
-  vertical-align: top;
-}
-
-.button.small {
-  padding: 0.6rem 0.8rem;
-  font-size: 1.4rem;
-}
-
-.button.active {
-  background-color: vars.$red-color;
-}
-
 .container {
   padding: 0 1.6rem;
   max-width: 1200px;

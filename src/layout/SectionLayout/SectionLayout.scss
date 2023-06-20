@@ -1,7 +1,7 @@
 .SectionLayout {
   &__header {
     display: grid;
-    grid-template-columns: 1fr 75px;
+    grid-template-columns: 1fr min-content;
     justify-content: space-between;
     margin-bottom: 16px;
     grid-gap: 16px;
@@ -13,6 +13,7 @@
     }
   }
   &__title {
+    text-transform: capitalize;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

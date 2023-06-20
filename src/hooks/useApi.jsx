@@ -7,8 +7,6 @@ const getEnvVar = (name) => {
 const apiUrl = `${getEnvVar("VITE_API_URL")}${getEnvVar("VITE_API_VERSION")}`;
 const apiKey = `api_key=${getEnvVar("VITE_API_KEY")}`;
 
-("https://api.themoviedb.org/3/movie/popular?api_key=b0a05ae639d6698fdc1f9c074d586a56");
-
 function useApi({ endpoint, qParams }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
