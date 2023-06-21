@@ -95,7 +95,7 @@ export const HeroMovieCategories = ({ categories, loading }) => {
       <div className="HeroMovieCategories__header">
         <h2 className="HeroMovieCategories__title">Categories</h2>
       </div>
-      <CategoryList categories={categories} loading={loading} />
+      <CategoryList categories={categories} loading={loading} xScroll/>
     </article>
   );
 };

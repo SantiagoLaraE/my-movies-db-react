@@ -38,7 +38,9 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/search?q=${encodeURI(query)}`);
+    setShowSearch(false);
   };
+
   return (
     <header id="header" className="Header">
       <div className="Header__container container">

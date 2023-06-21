@@ -6,6 +6,7 @@
   padding-top: 54px;
   padding-bottom: 16px;
   background: linear-gradient(to bottom, transparent 0%, vars.$dark-color 50%);
+  margin-top: 400px;
 
   &.spacingTop {
     margin-top: 400px;
@@ -113,8 +114,8 @@
     margin-top: 54px;
     background: linear-gradient(
       to bottom,
-      transparent 50%,
-      vars.$dark-color 100%
+      rgba(vars.$dark-color, 0) 0%,
+      vars.$dark-color 80%
     );
 
     .HeroMovieBackground::after {

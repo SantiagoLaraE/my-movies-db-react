@@ -15,6 +15,7 @@ import useApi from "@hooks/useApi";
 import { getRandomInt } from "@utils";
 import { useNavigate } from "react-router-dom";
 import AllCategoriesSection from "../template/AllCategoriesSection";
+import { formatToURL } from "@utils";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const HomePage = () => {
   return (
     <>
       <HeroMovie spacingTop>
-        {topMovie ? (
+        {topMovie && !loading ? (
           <>
             <HeroMovieBackground
               imgAlt={topMovie.title}
@@ -51,7 +52,15 @@ const HomePage = () => {
                 />
                 <HeroMovieActions>
                   <Button title="Play trailer" icon={<PlayIcon />} />
-                  <Button icon={<InfoIcon />} variant="secondary" />
+                  <Button
+                    icon={<InfoIcon />}
+                    variant="secondary"
+                    onClick={() => {
+                      navigate(
+                        `/movie/${topMovie.id}&${formatToURL(topMovie.title)}`
+                      );
+                    }}
+                  />
                 </HeroMovieActions>
               </HeroMovieDetails>
             </HeroMovieDetailsWrapper>
@@ -63,12 +72,16 @@ const HomePage = () => {
 
       <SectionLayout>
         <SectionLayoutHeader title="Now Playing">
-          <Button title="See all" size="small" onClick={() => navigate('/movies/now-playing')} />
+          <Button
+            title="See all"
+            size="small"
+            onClick={() => navigate("/movies/now-playing")}
+          />
         </SectionLayoutHeader>
         <MoviesList movies={trendingMovies} loading={loading} xScroll />
       </SectionLayout>
 
-      <AllCategoriesSection/>
+      <AllCategoriesSection />
     </>
   );
 };
