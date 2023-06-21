@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Button from "@components/Button";
 import "./MovieCard.scss";
+import { useNavigate } from "react-router-dom";
+import { formatToURL } from "@utils";
 
 const MovieCard = ({ movie }) => {
+  const navigate = useNavigate();
+  const imageRef = useRef(null);
   let poster_path = `https://image.tmdb.org/t/p/w154/${movie.poster_path}`;
 
   if (movie.poster_path === null) {
@@ -11,15 +15,47 @@ const MovieCard = ({ movie }) => {
     )}`;
   }
 
+  const goToMovieDetails = () => {
+    navigate(`/movie/${movie.id}&${formatToURL(movie.title)}`);
+  };
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.2,
+    };
+
+    const handleIntersect = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const dataImage = element.getAttribute("data-image");
+          element.src = dataImage;
+          element.classList.add("MovieCard__img--loaded");
+          observer.unobserve(element);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, options);
+
+    observer.observe(imageRef.current);
+
+    return () => {
+      observer.disconnect(imageRef.current);
+    };
+  }, []);
+
   return (
-    <figure className="MovieCard">
+    <figure className="MovieCard" onClick={goToMovieDetails}>
       <img
-        className="MovieCard__img MovieCard__img--loaded"
+        className="MovieCard__img"
         data-image={poster_path}
-        alt="My Fault"
+        alt={movie.title}
         width="200"
         height="300"
-        src={poster_path}
+        ref={imageRef}
       />
       <figcaption className="MovieCard__title">{movie.title}</figcaption>
       <Button
