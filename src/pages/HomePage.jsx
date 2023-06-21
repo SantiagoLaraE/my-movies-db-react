@@ -8,14 +8,13 @@ import {
   HeroMovieActions,
 } from "@components/HeroMovie";
 import Button from "@components/Button";
-import { SectionLayout, SectionLayoutHeader } from "@layout/SectionLayout";
 import { PlayIcon, InfoIcon } from "@icons";
-import MoviesList from "@components/MoviesList";
 import useApi from "@hooks/useApi";
 import { getRandomInt } from "@utils";
 import { useNavigate } from "react-router-dom";
 import AllCategoriesSection from "../template/AllCategoriesSection";
 import { formatToURL } from "@utils";
+import MoviesTypeSection from "../template/MoviesTypeSection";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -70,18 +69,14 @@ const HomePage = () => {
         )}
       </HeroMovie>
 
-      <SectionLayout>
-        <SectionLayoutHeader title="Now Playing">
-          <Button
-            title="See all"
-            size="small"
-            onClick={() => navigate("/movies/now-playing")}
-          />
-        </SectionLayoutHeader>
-        <MoviesList movies={trendingMovies} loading={loading} xScroll />
-      </SectionLayout>
+      <MoviesTypeSection title='Now Playing' endpoint='/movie/now_playing' seeAllLink='/movies/now-playing'/>
 
       <AllCategoriesSection />
+
+      <MoviesTypeSection title='Popular' endpoint='/movie/popular' seeAllLink='/movies/popular'/>
+
+      <MoviesTypeSection title='Upcoming' endpoint='/movie/upcoming' seeAllLink='/movies/upcoming'/>
+
     </>
   );
 };
