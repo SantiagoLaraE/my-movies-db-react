@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import Button from "@components/Button";
-import "./MovieCard.scss";
+import { useFavoriteMovies } from "@context/favoriteMovies";
 import { useNavigate } from "react-router-dom";
 import { formatToURL } from "@utils";
+import "./MovieCard.scss";
 
 const MovieCard = ({ movie }) => {
+  const { favoriteMovies, addToFavorite } = useFavoriteMovies();
   const navigate = useNavigate();
   const imageRef = useRef(null);
   let poster_path = `https://image.tmdb.org/t/p/w154/${movie.poster_path}`;
@@ -15,8 +17,17 @@ const MovieCard = ({ movie }) => {
     )}`;
   }
 
+  const isFavorite = favoriteMovies.some(
+    (favMovie) => favMovie.id === movie.id
+  );
+
   const goToMovieDetails = () => {
     navigate(`/movie/${movie.id}&${formatToURL(movie.title)}`);
+  };
+
+  const handleFavoriteMovie = (e) => {
+    e.stopPropagation();
+    addToFavorite(movie);
   };
 
   useEffect(() => {
@@ -60,9 +71,10 @@ const MovieCard = ({ movie }) => {
       <figcaption className="MovieCard__title">{movie.title}</figcaption>
       <Button
         icon="🤍"
-        className="MovieCard__btn"
+        className={`MovieCard__btn ${isFavorite ? "active" : ""}`}
         variant="secondary"
         size="small"
+        onClick={handleFavoriteMovie}
       />
     </figure>
   );

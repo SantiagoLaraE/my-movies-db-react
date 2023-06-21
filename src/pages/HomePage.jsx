@@ -12,9 +12,10 @@ import { PlayIcon, InfoIcon } from "@icons";
 import useApi from "@hooks/useApi";
 import { getRandomInt } from "@utils";
 import { useNavigate } from "react-router-dom";
-import AllCategoriesSection from "../template/AllCategoriesSection";
+import AllCategoriesSection from "@template/AllCategoriesSection";
 import { formatToURL } from "@utils";
-import MoviesTypeSection from "../template/MoviesTypeSection";
+import MoviesTypeSection from "@template/MoviesTypeSection";
+import FavoriteMoviesSection from "@template/FavoriteMoviesSection";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -76,6 +77,8 @@ const HomePage = () => {
       <MoviesTypeSection title='Popular' endpoint='/movie/popular' seeAllLink='/movies/popular'/>
 
       <MoviesTypeSection title='Upcoming' endpoint='/movie/upcoming' seeAllLink='/movies/upcoming'/>
+
+      <FavoriteMoviesSection title='My Favorite Movies' xScroll/>
 
     </>
   );

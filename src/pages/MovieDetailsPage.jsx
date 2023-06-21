@@ -11,15 +11,16 @@ import {
   HeroMovieActions,
 } from "@components/HeroMovie";
 import Button from "@components/Button";
-import { PlayIcon } from "@icons";
+import { PlayIcon, ArrowLeftIcon } from "@icons";
 import { HeroMovieCategories, HeroMoviePoster } from "../components/HeroMovie";
 import { SectionLayout, SectionLayoutHeader } from "@layout/SectionLayout";
 import MoviesList from "@components/MoviesList";
-import { ArrowLeftIcon } from "../assets/Icons";
+import { useFavoriteMovies } from "@context/favoriteMovies";
 
 const MovieDetailsPage = () => {
+  const { favoriteMovies, addToFavorite } = useFavoriteMovies();
   const { movieSlug } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [movieId, _] = movieSlug.split("&");
@@ -49,7 +50,7 @@ const MovieDetailsPage = () => {
   let similarMovies = data?.results;
 
   const handleGoBack = () => {
-    const state = location.state
+    const state = location.state;
 
     if (state?.prevLocation) {
       navigate(state.prevLocation.pathname);
@@ -57,6 +58,10 @@ const MovieDetailsPage = () => {
       navigate("/");
     }
   };
+
+  const isFavorite = favoriteMovies.some(
+    (favMovie) => favMovie.id === movie?.id
+  );
 
   return (
     <>
@@ -93,6 +98,12 @@ const MovieDetailsPage = () => {
                 />
                 <HeroMovieActions>
                   <Button title="Play trailer" icon={<PlayIcon />} />
+                  <Button
+                    icon="🤍"
+                    className={`${isFavorite ? "active" : ""}`}
+                    variant="secondary"
+                    onClick={() => addToFavorite(movie)}
+                  />
                 </HeroMovieActions>
               </HeroMovieDetails>
               <HeroMovieCategories
