@@ -1,17 +1,16 @@
 import React from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Outlet, useParams } from "react-router-dom";
 import Button from "@components/Button";
-import MoviesList from "@components/MoviesList";
 import { ArrowLeftIcon } from "@icons";
 import { SectionLayout, SectionLayoutHeader } from "@layout/SectionLayout";
 import CategoryList from "../components/CategoryList";
 import useApi from "@hooks/useApi";
-import useApiInfiniteScrolling from "../hooks/useApiInfiniteScrolling";
 
 const CategoriesPage = () => {
-
   const { categorySlug } = useParams();
-  const [categoryId, categoryName] = categorySlug.split("&");
+  let title = categorySlug?.split("&")[1] || 'Categories';
+  let categoryId = categorySlug?.split("&")[0] || null;
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,12 +19,6 @@ const CategoriesPage = () => {
   });
 
   const categories = data?.genres;
-
-  const {data: moviesData, loading: moviesLoading, end} = useApiInfiniteScrolling({
-    endpoint: "/discover/movie",
-    qParams: [`with_genres=${categoryId}`],
-    resetDependecies: [categorySlug],
-  })
 
   const goBack = () => {
     const state = location.state;
@@ -40,7 +33,7 @@ const CategoriesPage = () => {
   return (
     <>
       <SectionLayout>
-        <SectionLayoutHeader title={categoryName}>
+        <SectionLayoutHeader title={title}>
           <Button icon={<ArrowLeftIcon />} title="Go back" onClick={goBack} />
         </SectionLayoutHeader>
         <CategoryList
@@ -48,11 +41,9 @@ const CategoriesPage = () => {
           loading={loadingCategories}
           activeCategory={categoryId}
         />
-        <MoviesList movies={moviesData} />
-        <p style={{ width: "100%", padding: "64px", textAlign: "center" }}>
-          {moviesLoading && 'Loading...' }
-          {end && 'No more results'}
-        </p>
+        {!categorySlug && <span style={{display: 'block', textAlign: 'center', fontSize: '24px', fontWeight: 'bold'}}>Choose a category</span>}
+        <Outlet/>
+
       </SectionLayout>
     </>
   );
