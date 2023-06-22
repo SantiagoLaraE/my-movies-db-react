@@ -7,8 +7,11 @@ import SearchPage from "./pages/SearchPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import MoviesByCategory from "./template/MoviesByCategory";
 import { FavoriteMoviesProvider } from "./context/favoriteMovies";
+import { useMovieTrailer } from "./context/movieTrailer";
+import MovieTrailer from "@components/MovieTrailer";
 
 function App() {
+  const {showTrailer} = useMovieTrailer()
   return (
     <>
       <FavoriteMoviesProvider>
@@ -24,6 +27,7 @@ function App() {
             <Route path="*" element={<p>Not Found</p>} />
           </Routes>
         </MainLayout>
+        {showTrailer && <MovieTrailer/>}
       </FavoriteMoviesProvider>
     </>
   );

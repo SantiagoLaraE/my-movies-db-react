@@ -1,0 +1,30 @@
+@use "@styles/vars";
+
+.MovieTrailer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(vars.$dark-color, 0.8);
+  z-index: 300;
+  width: 100%;
+  height: 100vh;
+
+  &__wrapper {
+    display: flex;
+    padding: 3.2rem 0;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &__close{
+    position: absolute;
+    top: 32px;
+    right: 0;
+  }
+
+  iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+}

@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import {
   HeroMovie,
   HeroMovieBackground,
@@ -16,17 +17,23 @@ import AllCategoriesSection from "@template/AllCategoriesSection";
 import { formatToURL } from "@utils";
 import MoviesTypeSection from "@template/MoviesTypeSection";
 import FavoriteMoviesSection from "@template/FavoriteMoviesSection";
+import {useMovieTrailer} from '@context/movieTrailer'
 
 const HomePage = () => {
+  const {openTrailer} = useMovieTrailer();
   const navigate = useNavigate();
   const { data, loading } = useApi({
     endpoint: "/movie/now_playing",
   });
   const trendingMovies = data?.results;
 
-  const topMovie = trendingMovies
+  const topMovie = useMemo(()=>{
+    return trendingMovies
     ? trendingMovies[getRandomInt(0, trendingMovies.length - 1)]
     : null;
+  }, [data])
+
+  const [newState, setnewState] = useState(false)
 
   return (
     <>
@@ -51,7 +58,7 @@ const HomePage = () => {
                   overview={topMovie.overview}
                 />
                 <HeroMovieActions>
-                  <Button title="Play trailer" icon={<PlayIcon />} />
+                  <Button title="Play trailer" icon={<PlayIcon />} onClick={()=>openTrailer(topMovie.id)}/>
                   <Button
                     icon={<InfoIcon />}
                     variant="secondary"

@@ -16,8 +16,10 @@ import { HeroMovieCategories, HeroMoviePoster } from "../components/HeroMovie";
 import { SectionLayout, SectionLayoutHeader } from "@layout/SectionLayout";
 import MoviesList from "@components/MoviesList";
 import { useFavoriteMovies } from "@context/favoriteMovies";
+import { useMovieTrailer } from "../context/movieTrailer";
 
 const MovieDetailsPage = () => {
+  const {openTrailer} = useMovieTrailer()
   const { favoriteMovies, addToFavorite } = useFavoriteMovies();
   const { movieSlug } = useParams();
   const navigate = useNavigate();
@@ -97,7 +99,7 @@ const MovieDetailsPage = () => {
                   overview={movie.overview}
                 />
                 <HeroMovieActions>
-                  <Button title="Play trailer" icon={<PlayIcon />} />
+                  <Button title="Play trailer" icon={<PlayIcon />} onClick={()=>openTrailer(movie.id)}/>
                   <Button
                     icon="🤍"
                     className={`${isFavorite ? "active" : ""}`}
