@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 
-const getEnvVar = (name) => {
-  return import.meta.env[name];
-};
-
-const apiUrl = `${getEnvVar("VITE_API_URL")}${getEnvVar("VITE_API_VERSION")}`;
-const apiKey = `api_key=${getEnvVar("VITE_API_KEY")}`;
+const apiUrl = "https://api.themoviedb.org/3";
+const apiKey = "api_key=b0a05ae639d6698fdc1f9c074d586a56";
 
 function useApi({ endpoint, qParams, dependecies }) {
   const [data, setData] = useState(null);
